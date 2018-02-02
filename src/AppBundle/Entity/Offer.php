@@ -99,6 +99,8 @@ class Offer
     private $author;
 
 
+
+
     /**
      * Get id
      *
@@ -373,4 +375,3 @@ class Offer
         return $this->author;
     }
 }
-

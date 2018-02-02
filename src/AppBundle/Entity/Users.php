@@ -50,6 +50,12 @@ class Users
     private $adress;
 
     /**
+     *
+     * @ORM\OneToMany(targetEntity="transaction", mappedBy="idSourceUser")
+     */
+    private $srcTransactions;
+
+    /**
      * @var int
      *
      * @ORM\Column(name="postal_code", type="integer", nullable=true)
@@ -341,5 +347,45 @@ class Users
     {
         return $this->updateDate;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->srcTransactions = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Add srcTransaction
+     *
+     * @param \AppBundle\Entity\transaction $srcTransaction
+     *
+     * @return Users
+     */
+    public function addSrcTransaction(\AppBundle\Entity\transaction $srcTransaction)
+    {
+        $this->srcTransactions[] = $srcTransaction;
+
+        return $this;
+    }
+
+    /**
+     * Remove srcTransaction
+     *
+     * @param \AppBundle\Entity\transaction $srcTransaction
+     */
+    public function removeSrcTransaction(\AppBundle\Entity\transaction $srcTransaction)
+    {
+        $this->srcTransactions->removeElement($srcTransaction);
+    }
+
+    /**
+     * Get srcTransactions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSrcTransactions()
+    {
+        return $this->srcTransactions;
+    }
+}
